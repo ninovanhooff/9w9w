@@ -1,4 +1,4 @@
-package com.ninovanhooff.negenwnegenw.ui.home
+package com.ninovanhooff.negenwnegenw.ui.today
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,20 +10,20 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.ninovanhooff.negenwnegenw.R
 
-class HomeFragment : Fragment() {
+class TodayFragment : Fragment() {
 
-    private lateinit var homeViewModel: HomeViewModel
+    private lateinit var todayViewModel: TodayViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        homeViewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
+        todayViewModel = ViewModelProvider(this).get(TodayViewModel::class.java)
 
-        val root = inflater.inflate(R.layout.fragment_home, container, false)
+        val root = inflater.inflate(R.layout.fragment_today, container, false)
         val textView: TextView = root.findViewById(R.id.text_home)
-        homeViewModel.text.observe(viewLifecycleOwner, Observer {
+        todayViewModel.text.observe(viewLifecycleOwner, Observer {
             textView.text = it
         })
         return root
