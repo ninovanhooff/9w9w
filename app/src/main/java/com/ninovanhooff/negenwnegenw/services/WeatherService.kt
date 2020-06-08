@@ -45,14 +45,3 @@ interface WeatherService {
         }
     }
 }
-
-class FiveDayForecastResponse(
-    val list: List<OneDayForecast>
-) : BaseApiResponse()
-
-data class OneDayForecast(val dt: Long)
-
-abstract class BaseApiResponse {
-    val cod: Int = 0
-    val message: String? = null
-}
