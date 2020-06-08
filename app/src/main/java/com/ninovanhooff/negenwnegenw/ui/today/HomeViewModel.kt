@@ -26,8 +26,9 @@ class TodayViewModel : ViewModel() {
                 // NOT run on main thread. dispatch / post updates to update UI.
                 try {
                     if (response.isSuccessful) {
-                        _text.postValue("yay")
-                        //Do something with response e.g show to the UI.
+                        val temperatureString =
+                            response.body()?.timeSlots?.get(0)?.main?.temp.toString()
+                        _text.postValue(temperatureString)
                     } else {
                         _text.postValue("Error: ${response.code()}")
                     }
