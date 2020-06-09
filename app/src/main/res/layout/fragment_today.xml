@@ -41,17 +41,33 @@
             app:layout_constraintTop_toTopOf="@id/text_temperature"
             tools:text="℃" />
 
-        <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/weather_animation"
+
+        <ViewFlipper
+            android:id="@+id/weather_flipper"
             android:layout_width="80dp"
             android:layout_height="80dp"
-            app:layout_constraintStart_toStartOf="@id/vCenter"
+            android:inAnimation="@anim/view_flipper_enter"
+            android:outAnimation="@anim/view_flipper_exit"
             app:layout_constraintEnd_toEndOf="@id/endGuide"
-            app:layout_constraintTop_toTopOf="@id/topGuide"
+            app:layout_constraintStart_toStartOf="@id/vCenter"
+            app:layout_constraintTop_toTopOf="@id/topGuide">
 
-            app:lottie_autoPlay="true"
-            app:lottie_loop="true"
-            app:lottie_rawRes="@raw/lottie_storm" />
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/weather_animation0"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true" />
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/weather_animation1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true" />
+
+        </ViewFlipper>
+
 
         <TextView
             android:id="@+id/text_weather_description"
@@ -61,9 +77,9 @@
             android:gravity="center_horizontal|top"
             android:text="@{today.weatherDescription}"
             android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="@id/weather_animation"
-            app:layout_constraintEnd_toEndOf="@id/weather_animation"
-            app:layout_constraintTop_toBottomOf="@id/weather_animation"
+            app:layout_constraintEnd_toEndOf="@id/weather_flipper"
+            app:layout_constraintStart_toStartOf="@id/weather_flipper"
+            app:layout_constraintTop_toBottomOf="@id/weather_flipper"
             tools:text="Partially cloudy" />
 
 
