@@ -9,13 +9,14 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import retrofit2.HttpException
+import timber.log.Timber
 
 class TodayViewModel : ViewModel() {
 
-    private val _text = MutableLiveData<String>().apply {
-        value = "This is today Fragment"
-    }
-    val text: LiveData<String> = _text
+    // don't expose the mutable data...
+    private val _todayModel = MutableLiveData<TodayModel>()
+    // but the read-only data instead
+    val todayModel: LiveData<TodayModel> = _todayModel
 
     init {
         val weather = WeatherService.INSTANCE
@@ -26,18 +27,22 @@ class TodayViewModel : ViewModel() {
                 // NOT run on main thread. dispatch / post updates to update UI.
                 try {
                     if (response.isSuccessful) {
-                        val temperatureString =
-                            response.body()?.timeSlots?.get(0)?.main?.temp.toString()
-                        _text.postValue(temperatureString)
+                        val timeSlot = response.body()?.timeSlots?.get(0)
+                        if (timeSlot == null){
+                            Timber.e("Could not get timeslot from response $response")
+                        } else {
+                            _todayModel.postValue(TodayModel.fromTimeSlot(timeSlot))
+                        }
                     } else {
-                        _text.postValue("Error: ${response.code()}")
+                        throw HttpException(response)
                     }
-                } catch (e: HttpException) {
-                    _text.postValue("Exception ${e.message}")
                 } catch (e: Throwable) {
-                    _text.postValue("Ooops: Something else went wrong")
+                    handleResponseException(e)
                 }
             }
         }
     }
+
+    private fun handleResponseException(e: Throwable) = Timber.e(e)
+
 }

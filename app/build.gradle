@@ -1,6 +1,8 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
 
 def secretsPropertiesFile = rootProject.file("secrets.properties")
 def secretsProperties = new Properties()
@@ -20,6 +22,10 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         buildConfigField("String", "rapidapi_key", secretsProperties['rapidapi_key'])
+    }
+
+    dataBinding {
+        enabled = true
     }
 
     buildTypes {

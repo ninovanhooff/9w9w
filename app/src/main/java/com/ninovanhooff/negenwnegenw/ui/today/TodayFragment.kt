@@ -4,11 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.ninovanhooff.negenwnegenw.R
+import com.ninovanhooff.negenwnegenw.databinding.FragmentTodayBinding
 
 class TodayFragment : Fragment() {
 
@@ -21,11 +20,12 @@ class TodayFragment : Fragment() {
     ): View? {
         todayViewModel = ViewModelProvider(this).get(TodayViewModel::class.java)
 
-        val root = inflater.inflate(R.layout.fragment_today, container, false)
-        val temperatureView: TextView = root.findViewById(R.id.text_temperature)
-        todayViewModel.text.observe(viewLifecycleOwner, Observer {
-            temperatureView.text = it
+        val binding: FragmentTodayBinding = FragmentTodayBinding.inflate(inflater, container, false)
+
+        todayViewModel.todayModel.observe(viewLifecycleOwner, Observer {
+            binding.today = it
         })
-        return root
+
+        return binding.root
     }
 }

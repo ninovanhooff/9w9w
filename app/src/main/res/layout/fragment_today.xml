@@ -1,64 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/colorBlueSky"
-    tools:context=".ui.today.TodayFragment">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <TextView
-        android:id="@+id/text_temperature"
-        style="@style/PrimaryText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal|top"
-        android:includeFontPadding="false"
-        android:textSize="96sp"
-        app:layout_constraintStart_toStartOf="@id/startGuide"
-        app:layout_constraintTop_toTopOf="@id/topGuide"
-        tools:text="12" />
+    <data>
 
-    <TextView
-        android:id="@+id/text_temperature_unit"
-        style="@style/PrimaryText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal|top"
-        android:textSize="48sp"
-        app:layout_constraintStart_toEndOf="@id/text_temperature"
-        app:layout_constraintTop_toTopOf="@id/text_temperature"
-        tools:text="℃" />
+        <variable
+            name="today"
+            type="com.ninovanhooff.negenwnegenw.ui.today.TodayModel" />
+    </data>
 
-    <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/animation_view"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        app:layout_constraintEnd_toStartOf="@id/endGuide"
-        app:layout_constraintTop_toTopOf="@id/topGuide"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorBlueSky"
+        tools:context=".ui.today.TodayFragment">
 
-        app:lottie_autoPlay="true"
-        app:lottie_loop="true"
-        app:lottie_rawRes="@raw/lottie_storm" />
+        <TextView
+            android:id="@+id/text_temperature"
+            style="@style/PrimaryText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal|top"
+            android:includeFontPadding="false"
+            android:text="@{today.temp}"
+            android:textSize="96sp"
+            app:layout_constraintStart_toStartOf="@id/startGuide"
+            app:layout_constraintTop_toTopOf="@id/topGuide"
+            tools:text="12" />
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/startGuide"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_begin="8dp" />
+        <TextView
+            android:id="@+id/text_temperature_unit"
+            style="@style/PrimaryText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal|top"
+            android:text="@{today.tempUnit}"
+            android:textSize="48sp"
+            app:layout_constraintStart_toEndOf="@id/text_temperature"
+            app:layout_constraintTop_toTopOf="@id/text_temperature"
+            tools:text="℃" />
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/endGuide"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_end="8dp" />
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/animation_view"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            app:layout_constraintEnd_toStartOf="@id/endGuide"
+            app:layout_constraintTop_toTopOf="@id/topGuide"
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/topGuide"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="8dp" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/lottie_storm" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/startGuide"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="8dp" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/endGuide"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_end="8dp" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/topGuide"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="8dp" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
