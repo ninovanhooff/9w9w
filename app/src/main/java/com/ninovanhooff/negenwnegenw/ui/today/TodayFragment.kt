@@ -22,9 +22,9 @@ class TodayFragment : Fragment() {
         todayViewModel = ViewModelProvider(this).get(TodayViewModel::class.java)
 
         val root = inflater.inflate(R.layout.fragment_today, container, false)
-        val textView: TextView = root.findViewById(R.id.text_home)
+        val temperatureView: TextView = root.findViewById(R.id.text_temperature)
         todayViewModel.text.observe(viewLifecycleOwner, Observer {
-            textView.text = it
+            temperatureView.text = it
         })
         return root
     }
