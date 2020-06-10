@@ -5,7 +5,7 @@
     <color name="colorAccent">#03DAC5</color>
 
     <color name="colorPrimaryText">#FFFFFF</color>
-    <color name="colorTextShadow">#000000</color>
+    <color name="colorTextShadow">#AA000000</color>
 
     <color name="colorBlueSky">#699FCA</color>
 </resources>

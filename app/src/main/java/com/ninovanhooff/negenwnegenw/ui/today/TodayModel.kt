@@ -11,7 +11,7 @@ data class TodayModel(
     val temp: String,
     val tempUnit: String,
     val feelsLike: String,
-    val tempMin: String, val tempMax: String,
+    val tempMinMax: String,
     val weatherDescription: String,
     @RawRes val animationRawRes: Int
 ){
@@ -28,12 +28,15 @@ data class TodayModel(
         )
 
         fun fromTimeSlot(timeSlot: TimeSlot): TodayModel {
+            val main = timeSlot.main
+            val tempMinMax =
+                "Min: ${main.temp_min.convertTemp()}° ↓ · " +
+                "Max: ${main.temp_max.convertTemp()}° ↑"
             return TodayModel(
-                timeSlot.main.temp.convertTemp(),
+                main.temp.convertTemp(),
                 "℃",
-                timeSlot.main.feels_like.convertTemp(),
-                timeSlot.main.temp_min.convertTemp(),
-                timeSlot.main.temp_max.convertTemp(),
+                main.feels_like.convertTemp(),
+                tempMinMax,
                 timeSlot.weather[0].description,
                 lottieMap[timeSlot.weather[0].main] ?: R.raw.lottie_partly_cloudy
             )

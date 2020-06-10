@@ -5,7 +5,7 @@
         <item name="android:shadowColor">@color/colorTextShadow</item>
         <item name="android:shadowDx">1</item>
         <item name="android:shadowDy">2</item>
-        <item name="android:shadowRadius">1</item>
+        <item name="android:shadowRadius">3</item>
     </style>
 
     <!-- Base application theme. -->

@@ -41,16 +41,29 @@
             app:layout_constraintTop_toTopOf="@id/text_temperature"
             tools:text="℃" />
 
+        <TextView
+            android:id="@+id/text_temp_min_max"
+            style="@style/PrimaryText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal|top"
+            android:text="@{today.tempMinMax}"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@id/startGuide"
+            app:layout_constraintTop_toBottomOf="@id/text_temperature"
+            tools:text="Min: 10° ↓ · Max: 15° ↑" />
+
 
         <ViewFlipper
             android:id="@+id/weather_flipper"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             android:inAnimation="@anim/view_flipper_enter"
             android:outAnimation="@anim/view_flipper_exit"
+            app:layout_constraintBottom_toBottomOf="@id/text_temperature"
             app:layout_constraintEnd_toEndOf="@id/endGuide"
             app:layout_constraintStart_toStartOf="@id/vCenter"
-            app:layout_constraintTop_toTopOf="@id/topGuide">
+            app:layout_constraintTop_toTopOf="@id/text_temperature">
 
             <com.airbnb.lottie.LottieAnimationView
                 android:id="@+id/weather_animation0"
@@ -77,9 +90,9 @@
             android:gravity="center_horizontal|top"
             android:text="@{today.weatherDescription}"
             android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@id/text_temp_min_max"
             app:layout_constraintEnd_toEndOf="@id/weather_flipper"
             app:layout_constraintStart_toStartOf="@id/weather_flipper"
-            app:layout_constraintTop_toBottomOf="@id/weather_flipper"
             tools:text="Partially cloudy" />
 
 
