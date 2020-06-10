@@ -37,7 +37,7 @@ data class TodayModel(
                 "℃",
                 main.feels_like.convertTemp(),
                 tempMinMax,
-                timeSlot.weather[0].description,
+                timeSlot.weather[0].description.capitalize(),
                 lottieMap[timeSlot.weather[0].main] ?: R.raw.lottie_partly_cloudy
             )
         }
