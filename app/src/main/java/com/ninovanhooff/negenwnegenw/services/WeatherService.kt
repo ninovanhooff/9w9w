@@ -38,25 +38,32 @@ interface WeatherService {
             val defaultCacheControl = CacheControl.Builder()
                 .maxAge(15, TimeUnit.MINUTES) // 15 minutes cache
                 .build()
+                .toString()
 
 
             val httpClient = OkHttpClient.Builder()
             httpClient.cache(myCache)
             httpClient.addInterceptor { chain ->
-                val original = chain.request()
+                val originalRequest = chain.request()
 
                 // Request customization: add request headers
-                val requestBuilder = original.newBuilder()
+                val requestBuilder = originalRequest.newBuilder()
                     .addHeader("x-rapidapi-host", "community-open-weather-map.p.rapidapi.com")
                     .addHeader("x-rapidapi-key", BuildConfig.rapidapi_key)
 
+                val request = requestBuilder.build()
+                val originalResponse = chain.proceed(request)
+
+
                 // Use a default caching policy if not provided
-                if (original.header("Cache-Control").isNullOrBlank()) {
-                    requestBuilder.addHeader("Cache-Control", defaultCacheControl.toString())
+                if (originalResponse.header("Cache-Control").isNullOrBlank()) {
+                    originalResponse.newBuilder()
+                        .header("Cache-Control", defaultCacheControl)
+                        .build()
+                } else {
+                    originalResponse
                 }
 
-                val request = requestBuilder.build()
-                chain.proceed(request)
             }
 
             val okHttp = httpClient.build()
