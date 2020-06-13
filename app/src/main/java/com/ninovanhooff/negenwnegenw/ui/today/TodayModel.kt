@@ -2,7 +2,7 @@ package com.ninovanhooff.negenwnegenw.ui.today
 
 import androidx.annotation.RawRes
 import com.ninovanhooff.negenwnegenw.R
-import com.ninovanhooff.negenwnegenw.services.TimeSlot
+import com.ninovanhooff.negenwnegenw.services.dto.TimeSlot
 import kotlin.math.roundToInt
 
 /** A model for data-binding fragment_today.xml
