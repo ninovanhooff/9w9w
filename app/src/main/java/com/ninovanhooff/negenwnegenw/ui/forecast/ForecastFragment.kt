@@ -6,6 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import com.ninovanhooff.negenwnegenw.R
 
@@ -16,24 +18,31 @@ import com.ninovanhooff.negenwnegenw.R
  */
 class ForecastFragment : Fragment() {
 
-    private val forecastItems: List<ForecastDoubleItem> = listOf() //todo
+    private val forecastItems: MutableList<ForecastDoubleItem> = mutableListOf() //todo
 
     private var listener: OnListFragmentInteractionListener? = null
+
+    private lateinit var forecastViewModel: ForecastViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_forecast, container, false)
+        forecastViewModel = ViewModelProvider(this).get(ForecastViewModel::class.java)
+
+        val recycler: RecyclerView = inflater.inflate(R.layout.fragment_forecast, container, false) as RecyclerView
 
         // Set the adapter
-        if (view is RecyclerView) {
-            with(view) {
-                //layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-                adapter = ForecastRecyclerViewAdapter(forecastItems, listener)
-            }
-        }
-        return view
+        val adapter = ForecastRecyclerViewAdapter(forecastItems, listener)
+        recycler.adapter = adapter
+
+        forecastViewModel.forecastPages.observe(viewLifecycleOwner, Observer {
+            forecastItems.clear()
+            forecastItems.addAll(it)
+            adapter.notifyDataSetChanged()
+        })
+
+        return recycler
     }
 
     override fun onAttach(context: Context) {

@@ -15,3 +15,7 @@ startup. On consecutive launches, the last user search is restored.
   ```
   rapidapi_key="<X-RapidAPI-Key>"
   ```
+
+## Todo
+For omissions, known bugs, feature requests etc. please see the
+[Project Board](https://github.com/ninovanhooff/9w9w/projects/1)

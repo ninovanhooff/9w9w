@@ -8,7 +8,7 @@ import kotlin.math.roundToInt
 
 /** A model for data-binding fragment_today.xml
  * Because all numbers get bound to TextViews, we use String as data type */
-data class ForecastModel(
+data class WeatherModel(
     val temp: String,
     val tempUnit: String,
     val feelsLike: String,
@@ -34,12 +34,12 @@ data class ForecastModel(
         )
 
         @SuppressLint("DefaultLocale") // using Locale requires experimental kotlin overload
-        fun fromTimeSlot(timeSlot: TimeSlot): ForecastModel {
+        fun fromTimeSlot(timeSlot: TimeSlot): WeatherModel {
             val main = timeSlot.main
             val tempMinMax =
                 "Min: ${main.temp_min.convertTemp()}° ↓ · " +
                 "Max: ${main.temp_max.convertTemp()}° ↑"
-            return ForecastModel(
+            return WeatherModel(
                 main.temp.convertTemp(),
                 "℃",
                 main.feels_like.convertTemp(),

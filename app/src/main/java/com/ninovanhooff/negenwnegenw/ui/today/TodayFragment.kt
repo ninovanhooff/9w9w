@@ -24,7 +24,7 @@ class TodayFragment : Fragment() {
 
         val binding: FragmentTodayBinding = FragmentTodayBinding.inflate(inflater, container, false)
 
-        todayViewModel.forecastModel.observe(viewLifecycleOwner, Observer {
+        todayViewModel.weatherModel.observe(viewLifecycleOwner, Observer {
             binding.today = it
 
             LottieCompositionFactory.fromRawRes(context, it.animationRawRes).addListener { composition ->
