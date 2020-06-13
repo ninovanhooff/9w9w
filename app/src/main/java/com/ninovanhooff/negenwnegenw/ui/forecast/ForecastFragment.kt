@@ -18,7 +18,7 @@ import com.ninovanhooff.negenwnegenw.R
  */
 class ForecastFragment : Fragment() {
 
-    private val forecastItems: MutableList<ForecastDoubleItem> = mutableListOf() //todo
+    private val forecastItems: MutableList<ForecastDoubleItem> = mutableListOf()
 
     private var listener: OnListFragmentInteractionListener? = null
 
@@ -71,22 +71,7 @@ class ForecastFragment : Fragment() {
      * for more information.
      */
     interface OnListFragmentInteractionListener {
-        // TODO: Update argument type and name
         fun onListFragmentInteraction(item: ForecastDoubleItem?)
     }
 
-    companion object {
-
-        // TODO: Customize parameter argument names
-        const val ARG_COLUMN_COUNT = "column-count"
-
-        // TODO: Customize parameter initialization
-        @JvmStatic
-        fun newInstance(columnCount: Int) =
-            ForecastFragment().apply {
-                arguments = Bundle().apply {
-                    putInt(ARG_COLUMN_COUNT, columnCount)
-                }
-            }
-    }
 }

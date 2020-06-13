@@ -16,7 +16,6 @@ import kotlinx.android.synthetic.main.forecast_item.view.*
 /**
  * [RecyclerView.Adapter] that can display a [ForecastDoubleItem] and makes a call to the
  * specified [OnListFragmentInteractionListener].
- * TODO: Replace the implementation with code for your data type.
  */
 class ForecastRecyclerViewAdapter(
     private val values: List<ForecastDoubleItem>,
@@ -46,7 +45,6 @@ class ForecastRecyclerViewAdapter(
         holder.leftTemperatureMinMax.text = item.left.tempMinMax
         holder.leftWeatherDescription.text = item.left.weatherDescription
 
-        //todo check thread
         LottieCompositionFactory.fromRawRes(holder.itemView.context, item.left.animationRawRes)
             .addListener { composition ->
                 holder.leftAnimation.setComposition(composition)
@@ -57,7 +55,6 @@ class ForecastRecyclerViewAdapter(
         holder.rightTemperatureMinMax.text = item.right.tempMinMax
         holder.rightWeatherDescription.text = item.right.weatherDescription
 
-        //todo check thread
         LottieCompositionFactory.fromRawRes(holder.itemView.context, item.right.animationRawRes)
             .addListener { composition ->
                 holder.rightAnimation.setComposition(composition)
