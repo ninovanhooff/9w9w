@@ -1,6 +1,8 @@
 # 9w9w
 
-Weather information sample app.
+Weather information sample app.  
+Shows the weather for Utrecht on first
+startup. On consecutive launches, the last user search is restored.
 
 ## Setup
 
