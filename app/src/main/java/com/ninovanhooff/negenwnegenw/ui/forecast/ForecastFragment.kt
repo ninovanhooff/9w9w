@@ -44,6 +44,7 @@ class ForecastFragment : Fragment() {
             forecastItems.clear()
             forecastItems.addAll(it)
             adapter.notifyDataSetChanged()
+            recycler.smoothScrollToPosition(0)
         })
 
         return recycler

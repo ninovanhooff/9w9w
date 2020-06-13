@@ -48,6 +48,7 @@ class ForecastRecyclerViewAdapter(
         LottieCompositionFactory.fromRawRes(holder.itemView.context, item.left.animationRawRes)
             .addListener { composition ->
                 holder.leftAnimation.setComposition(composition)
+                holder.leftAnimation.playAnimation()
             }
 
 
@@ -58,6 +59,7 @@ class ForecastRecyclerViewAdapter(
         LottieCompositionFactory.fromRawRes(holder.itemView.context, item.right.animationRawRes)
             .addListener { composition ->
                 holder.rightAnimation.setComposition(composition)
+                holder.rightAnimation.playAnimation()
             }
         
 
