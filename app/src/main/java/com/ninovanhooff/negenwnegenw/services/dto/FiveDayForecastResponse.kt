@@ -6,7 +6,10 @@ import com.google.gson.annotations.SerializedName
 data class FiveDayForecastResponse(
     @Expose
     @SerializedName("list")
-    val timeSlots: List<TimeSlot>
+    val timeSlots: List<TimeSlot>,
+    @Expose
+    @SerializedName("city")
+    val city: City
 ) : BaseApiResponse()
 
 data class TimeSlot(
@@ -30,13 +33,13 @@ data class TimeSlot(
     val rain: Rain,
     @Expose
     @SerializedName("sys")
-    val sys: Sys,
+    val sys: FiveDaySys,
     @Expose
     @SerializedName("dt_txt")
     val dt_txt: String
 )
 
-data class Sys(
+data class FiveDaySys(
     @Expose
     @SerializedName("pod")
     val pod: String
@@ -46,6 +49,18 @@ data class Rain(
     @Expose
     @SerializedName("3h")
     val amount: Double
+)
+
+data class City(
+    @Expose
+    @SerializedName("name")
+    val name: String,
+    @Expose
+    @SerializedName("country")
+    val country: String,
+    @Expose
+    @SerializedName("id")
+    val id: Int
 )
 
 

@@ -30,13 +30,19 @@ data class CityResult(
     var wind: Wind,
     @Expose
     @SerializedName("sys")
-    var sys: Sys,
+    var sys: CitySys,
     @Expose
     @SerializedName("clouds")
     var clouds: Clouds,
     @Expose
     @SerializedName("weather")
     var weather: List<Weather>
+)
+
+data class CitySys(
+    @Expose
+    @SerializedName("country")
+    val country: String
 )
 
 data class Coord(

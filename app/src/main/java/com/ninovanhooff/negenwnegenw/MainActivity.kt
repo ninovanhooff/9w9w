@@ -7,12 +7,26 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.arlib.floatingsearchview.FloatingSearchView
+import com.arlib.floatingsearchview.suggestions.model.SearchSuggestion
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var viewModel: MainViewModel
+    private lateinit var searchView: FloatingSearchView
+
+    private val citySearchListener = object : FloatingSearchView.OnSearchListener {
+        override fun onSearchAction(currentQuery: String?) {
+            viewModel.onCityInputSubmit(currentQuery!!)
+            searchView.clearSearchFocus()
+        }
+
+        override fun onSuggestionClicked(searchSuggestion: SearchSuggestion) {
+            viewModel.onCitySuggestionSelected(searchSuggestion as CityModel)
+            searchView.clearSearchFocus()
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,11 +39,19 @@ class MainActivity : AppCompatActivity() {
         val navController = findNavController(R.id.nav_host_fragment)
         navView.setupWithNavController(navController)
 
-        val searchView : FloatingSearchView = findViewById(R.id.floating_search_view)
+        searchView = findViewById(R.id.floating_search_view)
+        searchView.closeMenu(true)
 
-        searchView.setOnQueryChangeListener { _, newQuery -> //get suggestions based on newQuery
+        searchView.setOnQueryChangeListener { _, newQuery ->
+            //get suggestions based on newQuery
             viewModel.onCityInputChange(newQuery)
         }
+
+        searchView.setOnSearchListener(citySearchListener)
+
+        viewModel.cityModel.observe(this, Observer {
+            searchView.setSearchText(it.body)
+        })
 
         viewModel.citySuggestions.observe(this, Observer {
             searchView.swapSuggestions(it)

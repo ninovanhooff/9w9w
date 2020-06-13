@@ -19,8 +19,8 @@ import java.util.concurrent.TimeUnit
 
 interface WeatherService {
 
-    @GET("forecast?q=utrecht&units=metric")
-    suspend fun getForecast(): Response<FiveDayForecastResponse>
+    @GET("forecast?units=metric")
+    suspend fun getForecast(@Query("id") cityId: Int): Response<FiveDayForecastResponse>
 
     /** The documented `type=like` query param for substring search seems to be ineffective */
     @GET("find?type=like")

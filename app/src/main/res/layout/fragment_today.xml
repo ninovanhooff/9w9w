@@ -7,7 +7,7 @@
 
         <variable
             name="today"
-            type="com.ninovanhooff.negenwnegenw.ui.today.TodayModel" />
+            type="com.ninovanhooff.negenwnegenw.ui.today.ForecastModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

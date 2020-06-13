@@ -1,12 +1,13 @@
 package com.ninovanhooff.negenwnegenw
 
-import android.os.Parcel
-import android.os.Parcelable
+import android.content.SharedPreferences
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.arlib.floatingsearchview.suggestions.model.SearchSuggestion
+import com.ninovanhooff.negenwnegenw.CityModel.Companion.getActiveCity
+import com.ninovanhooff.negenwnegenw.CityModel.Companion.setActiveCity
+import com.ninovanhooff.negenwnegenw.data.Preferences
 import com.ninovanhooff.negenwnegenw.services.WeatherService
 import com.ninovanhooff.negenwnegenw.util.debounce
 import kotlinx.coroutines.CoroutineScope
@@ -17,38 +18,65 @@ import retrofit2.HttpException
 import timber.log.Timber
 
 class MainViewModel: ViewModel() {
-
-    private val _citySuggestions = MutableLiveData<List<MySuggestion>>()
-    val citySuggestions: LiveData<List<MySuggestion>> = _citySuggestions
-
     private val weather = WeatherService.INSTANCE
+    private val prefs = MyApplication.injector.providePreferences()
+
+    private val _citySuggestions = MutableLiveData<List<CityModel>>()
+    val citySuggestions: LiveData<List<CityModel>> = _citySuggestions
+
+    private val _cityModel = MutableLiveData(prefs.getActiveCity())
+    val cityModel: LiveData<CityModel> = _cityModel
+
+    private val cityChangedListener =
+        SharedPreferences.OnSharedPreferenceChangeListener { _, key ->
+            if (key == Preferences.PREF_KEY_LAST_CITY_ID){
+                _cityModel.postValue(prefs.getActiveCity())
+            }
+        }
 
     /** Callback for when the user changed the city input field.
      *  May be safely called for every character input, api access is throttled */
     val onCityInputChange: (String) -> Unit =
         debounce(300L, viewModelScope, this::performCitySearch)
 
+    init {
+        prefs.registerListener(cityChangedListener)
+    }
 
-    /** Query the [WeatherService] for cities containing [newQuery].
+    override fun onCleared() {
+        super.onCleared()
+        prefs.unRegisterListener(cityChangedListener)
+    }
+
+
+    /** Query the [WeatherService] for cities containing [query].
      *
-     *  Observe [citySuggestions] for results */
-    private fun performCitySearch(newQuery: String) {
-        if (newQuery.length < 3){
+     *  Observe [citySuggestions] for results
+     *  @param selectFirst: when the search completes, select the first result and
+     *  update the active Fragment for that city
+     *
+     */
+    private fun performCitySearch(query: String, selectFirst: Boolean = false) {
+        if (query.length < 3){
             // minimum query length is 3
             //todo discuss: Where should this check be placed?
             return
         }
 
         CoroutineScope(Dispatchers.IO).launch {
-            val response = weather.getCities(newQuery)
+            val response = weather.getCities(query)
             withContext(Dispatchers.Default) {
                 // NOT run on main thread. dispatch / post updates to update UI.
                 try {
                     if (response.isSuccessful) {
                         val suggestions = response.body()?.cities?.map {
-                            MySuggestion(it.name)
+                            CityModel(it.name, it.sys.country, it.id)
                         } ?: listOf()
-                        _citySuggestions.postValue(suggestions)
+                        if(suggestions.isNotEmpty() && selectFirst){
+                            prefs.setActiveCity(suggestions.first())
+                        } else {
+                            _citySuggestions.postValue(suggestions)
+                        }
                     } else {
                         throw HttpException(response)
                     }
@@ -58,31 +86,23 @@ class MainViewModel: ViewModel() {
             }
         }
     }
+
+
+
+    /** Search for [query] and auto-select the first result */
+    fun onCityInputSubmit(query: String) {
+        performCitySearch(query, true)
+    }
+
+    fun onCitySuggestionSelected(cityModel: CityModel) {
+        prefs.setActiveCity(cityModel)
+    }
+
+    /** Explicitly-declared overload to support single parameter usage required by debounce
+     * Apparently Kotlin 1.3 feature "Function reference with default value as other type"
+     * is disabled. */
+    private fun performCitySearch(query: String){
+        performCitySearch(query, selectFirst = false)
+    }
 }
 
-class MySuggestion(private val body: String?) : SearchSuggestion {
-    constructor(parcel: Parcel) : this(parcel.readString())
-
-    override fun getBody(): String? {
-        return body
-    }
-
-    override fun writeToParcel(parcel: Parcel, flags: Int) {
-        parcel.writeString(body)
-    }
-
-    override fun describeContents(): Int {
-        return 0
-    }
-
-    companion object CREATOR : Parcelable.Creator<MySuggestion> {
-        override fun createFromParcel(parcel: Parcel): MySuggestion {
-            return MySuggestion(parcel)
-        }
-
-        override fun newArray(size: Int): Array<MySuggestion?> {
-            return arrayOfNulls(size)
-        }
-    }
-
-}
