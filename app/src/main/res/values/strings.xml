@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">9w9w</string>
     <string name="title_home">Today</string>
+    <string name="title_forecast">Forecast</string>
 </resources>

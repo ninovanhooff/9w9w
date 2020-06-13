@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import com.ninovanhooff.negenwnegenw.MyApplication
 import com.ninovanhooff.negenwnegenw.data.Preferences
 import com.ninovanhooff.negenwnegenw.services.WeatherService
+import com.ninovanhooff.negenwnegenw.ui.ForecastModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

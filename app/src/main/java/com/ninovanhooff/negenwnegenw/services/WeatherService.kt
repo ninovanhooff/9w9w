@@ -60,7 +60,7 @@ interface WeatherService {
 
                 val request = requestBuilder.build()
 
-                Timber.d("Requesting ${request.url}")
+                Timber.d("Requesting ${request.url()}")
                 val originalResponse = chain.proceed(request)
 
 
