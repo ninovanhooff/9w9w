@@ -6,6 +6,8 @@
     android:name="com.ninovanhooff.negenwnegenw.ui.forecast.ForecastFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="8dp"
+    android:clipToPadding="false"
     android:background="@color/colorBlueSky"
     app:layoutManager="LinearLayoutManager"
     android:orientation="horizontal"

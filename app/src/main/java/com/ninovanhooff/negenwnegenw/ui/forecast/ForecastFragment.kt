@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.ninovanhooff.negenwnegenw.R
 
@@ -31,6 +32,9 @@ class ForecastFragment : Fragment() {
         forecastViewModel = ViewModelProvider(this).get(ForecastViewModel::class.java)
 
         val recycler: RecyclerView = inflater.inflate(R.layout.fragment_forecast, container, false) as RecyclerView
+        // Configures the snap helper and attaches itself to the recycler view -- now items will snap to the center
+        LinearSnapHelper().attachToRecyclerView(recycler)
+
 
         // Set the adapter
         val adapter = ForecastRecyclerViewAdapter(forecastItems, listener)

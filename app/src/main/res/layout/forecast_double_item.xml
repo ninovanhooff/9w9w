@@ -3,20 +3,25 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="match_parent"
+    android:baselineAligned="false"
     android:orientation="horizontal"
-    tools:context=".ui.forecast.ForecastFragment"
-    android:baselineAligned="false">
+    tools:context=".ui.forecast.ForecastFragment">
 
-    <include layout="@layout/forecast_item"
+    <include
         android:id="@+id/item_left"
+        layout="@layout/forecast_item"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="0.5"/>
-    <include layout="@layout/forecast_item"
+        android:layout_marginEnd="8dp"
+        android:layout_weight="0.5" />
+
+    <include
         android:id="@+id/item_right"
+        layout="@layout/forecast_item"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="0.5"/>
+        android:layout_marginEnd="8dp"
+        android:layout_weight="0.5" />
 
 
 </LinearLayout>
