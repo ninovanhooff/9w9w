@@ -3,6 +3,7 @@ package com.ninovanhooff.negenwnegenw.data
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.preference.PreferenceManager
+import com.ninovanhooff.negenwnegenw.CityModel
 
 /** SharedPreferences Implementation. Stores user preferences. */
 class Preferences constructor(context: Context) {
@@ -56,6 +57,20 @@ class Preferences constructor(context: Context) {
             putString(PREF_KEY_LAST_CITY_COUNTRY_CODE, countryCode)
             apply()
         }
+    }
+
+    fun getActiveCity(): CityModel {
+        return CityModel(
+            getActiveCityName(),
+            getActiveCityCountryCode(),
+            getActiveCityId()
+        )
+    }
+
+    fun setActiveCity(model: CityModel) {
+        setActiveCityName(model.name)
+        setActiveCityCountryCode(model.countryCode)
+        setActiveCityId(model.id)
     }
 
     companion object {

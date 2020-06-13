@@ -5,8 +5,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.ninovanhooff.negenwnegenw.CityModel.Companion.getActiveCity
-import com.ninovanhooff.negenwnegenw.CityModel.Companion.setActiveCity
 import com.ninovanhooff.negenwnegenw.data.Preferences
 import com.ninovanhooff.negenwnegenw.services.WeatherService
 import com.ninovanhooff.negenwnegenw.util.debounce

@@ -4,7 +4,6 @@ import android.content.SharedPreferences
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.ninovanhooff.negenwnegenw.CityModel.Companion.getActiveCity
 import com.ninovanhooff.negenwnegenw.MyApplication
 import com.ninovanhooff.negenwnegenw.data.Preferences
 import com.ninovanhooff.negenwnegenw.services.WeatherService
