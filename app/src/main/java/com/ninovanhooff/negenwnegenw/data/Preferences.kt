@@ -73,14 +73,49 @@ class Preferences constructor(context: Context) {
         setActiveCityId(model.id)
     }
 
+    fun getTemperatureUnit(): TemperatureUnit {
+        return TemperatureUnit
+            .getByValue(sharedPreferences.getInt(PREF_KEY_TEMPERATURE_UNIT, DEFAULT_TEMPERATURE_UNIT.value))
+            ?: DEFAULT_TEMPERATURE_UNIT
+    }
+
+    fun setTemperatureUnit(unit: TemperatureUnit) {
+        with(sharedPreferences.edit()) {
+            putInt(PREF_KEY_TEMPERATURE_UNIT, unit.value)
+            apply()
+        }
+    }
+
+    /** Changes temperature units between Celsius and Fahrenheit */
+    fun toggleTemperatureUnit() {
+        if (getTemperatureUnit() == TemperatureUnit.CELSIUS){
+            setTemperatureUnit(TemperatureUnit.FAHRENHEIT)
+        } else {
+            setTemperatureUnit(TemperatureUnit.CELSIUS)
+        }
+    }
+
     companion object {
 
-        // Change first-start city defaults below
+        // Change first-start defaults below
         const val PREF_KEY_LAST_CITY_NAME = "pref_key_last_city_name"
         const val DEFAULT_LAST_CITY_NAME = "Utrecht"
         const val PREF_KEY_LAST_CITY_ID = "pref_key_last_city_id"
         const val DEFAULT_LAST_CITY_ID = 2745912 // Utrecht city, NL
-        const val PREF_KEY_LAST_CITY_COUNTRY_CODE = "pref_last_city_country_code"
+        const val PREF_KEY_LAST_CITY_COUNTRY_CODE = "pref_key_last_city_country_code"
         const val DEFAULT_LAST_CITY_COUNTRY_CODE = "NL"
+        const val PREF_KEY_TEMPERATURE_UNIT = "pref_key_temperature_unit"
+        val DEFAULT_TEMPERATURE_UNIT = TemperatureUnit.CELSIUS
+    }
+
+    enum class TemperatureUnit(val value: Int){
+        CELSIUS(0),
+        FAHRENHEIT(1);
+
+        companion object {
+            private val values = values()
+            fun getByValue(value: Int) = values.firstOrNull { it.value == value }
+        }
+
     }
 }

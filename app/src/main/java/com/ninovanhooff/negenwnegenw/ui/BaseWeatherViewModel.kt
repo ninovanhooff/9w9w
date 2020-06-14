@@ -17,16 +17,16 @@ abstract class BaseWeatherViewModel : ViewModel() {
     private val weather = WeatherService.INSTANCE
     private val prefs = MyApplication.injector.providePreferences()
 
-    private val cityChangedListener =
+    private val prefsChangedListener =
         SharedPreferences.OnSharedPreferenceChangeListener { _, key ->
-            if (key == Preferences.PREF_KEY_LAST_CITY_ID){
+            if (key in listOf(Preferences.PREF_KEY_LAST_CITY_ID, Preferences.PREF_KEY_TEMPERATURE_UNIT)){
                 loadForecast()
             }
         }
 
 
     init {
-        prefs.registerListener(cityChangedListener)
+        prefs.registerListener(prefsChangedListener)
 
         loadForecast()
     }
@@ -55,7 +55,7 @@ abstract class BaseWeatherViewModel : ViewModel() {
 
     override fun onCleared() {
         super.onCleared()
-        prefs.unRegisterListener(cityChangedListener)
+        prefs.unRegisterListener(prefsChangedListener)
     }
 
     private fun handleResponseException(e: Throwable) = Timber.e(e)

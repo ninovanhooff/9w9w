@@ -102,5 +102,9 @@ class MainViewModel: ViewModel() {
     private fun performCitySearch(query: String){
         performCitySearch(query, selectFirst = false)
     }
+
+    fun onFabClicked() {
+        prefs.toggleTemperatureUnit()
+    }
 }
 

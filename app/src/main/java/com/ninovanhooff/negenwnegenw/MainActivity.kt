@@ -1,6 +1,7 @@
 package com.ninovanhooff.negenwnegenw
 
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -49,6 +50,11 @@ class MainActivity : AppCompatActivity(), ForecastFragment.OnListFragmentInterac
         }
 
         searchView.setOnSearchListener(citySearchListener)
+
+        val fab: View = findViewById(R.id.fab)
+        fab.setOnClickListener {
+            viewModel.onFabClicked()
+        }
 
         viewModel.cityModel.observe(this, Observer {
             searchView.setSearchText(it.body)
