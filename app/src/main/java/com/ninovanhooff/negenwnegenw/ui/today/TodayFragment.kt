@@ -4,23 +4,26 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.airbnb.lottie.LottieComposition
 import com.airbnb.lottie.LottieCompositionFactory
 import com.ninovanhooff.negenwnegenw.databinding.FragmentTodayBinding
+import com.ninovanhooff.negenwnegenw.ui.BaseWeatherFragment
 
-class TodayFragment : Fragment() {
+class TodayFragment : BaseWeatherFragment() {
 
-    private lateinit var todayViewModel: TodayViewModel
+    private val todayViewModel: TodayViewModel by lazy {
+        ViewModelProvider(this).get(TodayViewModel::class.java)
+    }
+    override fun provideBaseViewModel() = todayViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        todayViewModel = ViewModelProvider(this).get(TodayViewModel::class.java)
+        super.onCreateView(inflater, container, savedInstanceState)
 
         val binding: FragmentTodayBinding = FragmentTodayBinding.inflate(inflater, container, false)
 

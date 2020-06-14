@@ -1,11 +1,15 @@
 package com.ninovanhooff.negenwnegenw.ui
 
 import android.content.SharedPreferences
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.ninovanhooff.negenwnegenw.MyApplication
+import com.ninovanhooff.negenwnegenw.R
 import com.ninovanhooff.negenwnegenw.data.Preferences
 import com.ninovanhooff.negenwnegenw.services.WeatherService
 import com.ninovanhooff.negenwnegenw.services.dto.FiveDayForecastResponse
+import com.ninovanhooff.negenwnegenw.util.LiveDataUtil.Event
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -16,6 +20,10 @@ import timber.log.Timber
 abstract class BaseWeatherViewModel : ViewModel() {
     private val weather = WeatherService.INSTANCE
     private val prefs = MyApplication.injector.providePreferences()
+    private val context = MyApplication.injector.provideContext()
+
+    private val _errorMessages = MutableLiveData<Event<String>>()
+    val errorMessages: LiveData<Event<String>> = _errorMessages
 
     private val prefsChangedListener =
         SharedPreferences.OnSharedPreferenceChangeListener { _, key ->
@@ -58,6 +66,12 @@ abstract class BaseWeatherViewModel : ViewModel() {
         prefs.unRegisterListener(prefsChangedListener)
     }
 
-    private fun handleResponseException(e: Throwable) = Timber.e(e)
+    private fun handleResponseException(e: Throwable) {
+        if ((e as? HttpException)?.code() == 429){
+            // we could use context here to show a Toast directly, but that's not our responsibility
+            _errorMessages.postValue(Event(context.getString(R.string.error_too_many_requests)))
+        }
+        Timber.e(e)
+    }
 
 }
