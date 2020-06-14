@@ -12,11 +12,7 @@ import com.ninovanhooff.negenwnegenw.R
 import com.ninovanhooff.negenwnegenw.ui.BaseWeatherFragment
 import com.ninovanhooff.negenwnegenw.ui.BaseWeatherViewModel
 
-/**
- * A fragment representing a list of Items.
- * Activities containing this fragment MUST implement the
- * [ForecastFragment.OnListFragmentInteractionListener] interface.
- */
+/** A fragment representing a list of daily forecasts. */
 class ForecastFragment : BaseWeatherFragment() {
 
     private val forecastItems: MutableList<ForecastDoubleItem> = mutableListOf()
@@ -33,10 +29,9 @@ class ForecastFragment : BaseWeatherFragment() {
         super.onCreateView(inflater, container, savedInstanceState)
 
         val recycler: RecyclerView = inflater.inflate(R.layout.fragment_forecast, container, false) as RecyclerView
-        // Configures the snap helper and attaches itself to the recycler view -- now items will snap to the center
+        //Snap to the item closest to the center of the view when a gesture ends
         LinearSnapHelper().attachToRecyclerView(recycler)
         recycler.addItemDecoration(LinePagerIndicatorDecoration())
-
 
         // Set the adapter
         val adapter = ForecastRecyclerViewAdapter(forecastItems)

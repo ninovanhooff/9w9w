@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/navigation_today"
         android:name="com.ninovanhooff.negenwnegenw.ui.today.TodayFragment"
-        android:label="@string/title_home"
+        android:label="@string/title_today"
         tools:layout="@layout/fragment_today" />
 
     <fragment

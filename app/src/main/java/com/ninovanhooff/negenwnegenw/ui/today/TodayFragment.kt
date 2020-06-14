@@ -11,6 +11,7 @@ import com.airbnb.lottie.LottieCompositionFactory
 import com.ninovanhooff.negenwnegenw.databinding.FragmentTodayBinding
 import com.ninovanhooff.negenwnegenw.ui.BaseWeatherFragment
 
+/** Shows a single WeatherForecast */
 class TodayFragment : BaseWeatherFragment() {
 
     private val todayViewModel: TodayViewModel by lazy {

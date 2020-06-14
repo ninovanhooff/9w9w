@@ -1,8 +1,8 @@
 package com.ninovanhooff.negenwnegenw.services
 
 import com.ninovanhooff.negenwnegenw.MyApplication
-import com.ninovanhooff.negenwnegenw.services.Injectors.defaultCacheControlInterceptor
-import com.ninovanhooff.negenwnegenw.services.Injectors.rapidApiAuthorizationInterceptor
+import com.ninovanhooff.negenwnegenw.services.Interceptors.defaultCacheControlInterceptor
+import com.ninovanhooff.negenwnegenw.services.Interceptors.rapidApiAuthorizationInterceptor
 import com.ninovanhooff.negenwnegenw.services.dto.FindResponse
 import com.ninovanhooff.negenwnegenw.services.dto.FiveDayForecastResponse
 import okhttp3.Cache
@@ -14,19 +14,21 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 import java.io.File
 
-
+/** OpenWeatherMap API endpoint. Responses may be cached. See [Interceptors.defaultCacheControl] */
 interface WeatherService {
 
+    /** Get a 5-day forecast, subdivided in 3-hour intervals */
     @GET("forecast")
     suspend fun getForecast(@Query("id") cityId: Int, @Query("units") units: String): Response<FiveDayForecastResponse>
 
-    /** The documented `type=like` query param for substring search seems to be ineffective */
+    /** Search matching cities given substring query [query].
+     * The documented `type=like` query param for substring search seems to be ineffective */
     @GET("find?type=like")
     suspend fun getCities(@Query("q") query: String): Response<FindResponse>
 
     companion object {
         private const val CACHE_SIZE = (5 * 1024 * 1024).toLong()
-        private const val CACHE_DIR_RELATIVE_PATH = ""
+        private const val CACHE_DIR_RELATIVE_PATH = "weather_service_cache"
 
         val INSTANCE: WeatherService by lazy {
             createInstance()
@@ -40,13 +42,11 @@ interface WeatherService {
             cacheDir.mkdir()
             val myCache = Cache(cacheDir, CACHE_SIZE)
 
-            val httpClient = OkHttpClient.Builder()
-            httpClient.cache(myCache)
-
-            httpClient.addNetworkInterceptor(rapidApiAuthorizationInterceptor)
-            httpClient.addNetworkInterceptor(defaultCacheControlInterceptor)
-
-            val okHttp = httpClient.build()
+            val okHttp = OkHttpClient.Builder()
+                .cache(myCache)
+                .addNetworkInterceptor(rapidApiAuthorizationInterceptor)
+                .addNetworkInterceptor(defaultCacheControlInterceptor)
+                .build()
 
             val retrofit = Retrofit.Builder()
                 .client(okHttp)

@@ -5,9 +5,11 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-/** utility and Extension functions related to manipulating data streams
- * with coroutines */
-
+/** Only invoke [destinationFunction] when it is not invoked another time within [waitMs]
+ * As long as the coroutine is not cancelled, the last invocation of [destinationFunction]
+ * will be executed.
+ *
+ * Visual explanation on [RxMarbles](https://rxmarbles.com/#debounce) */
 fun <T> debounce(
     waitMs: Long,
     coroutineScope: CoroutineScope,

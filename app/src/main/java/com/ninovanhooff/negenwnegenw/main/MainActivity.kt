@@ -1,4 +1,4 @@
-package com.ninovanhooff.negenwnegenw
+package com.ninovanhooff.negenwnegenw.main
 
 import android.os.Bundle
 import android.view.View
@@ -10,6 +10,7 @@ import androidx.navigation.ui.setupWithNavController
 import com.arlib.floatingsearchview.FloatingSearchView
 import com.arlib.floatingsearchview.suggestions.model.SearchSuggestion
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.ninovanhooff.negenwnegenw.R
 
 
 class MainActivity : AppCompatActivity() {

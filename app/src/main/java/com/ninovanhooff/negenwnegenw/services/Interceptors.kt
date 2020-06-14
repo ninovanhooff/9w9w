@@ -5,13 +5,13 @@ import okhttp3.CacheControl
 import okhttp3.Interceptor
 import java.util.concurrent.TimeUnit
 
-object Injectors {
+object Interceptors {
     private val defaultCacheControl = CacheControl.Builder()
         .maxAge(30, TimeUnit.MINUTES)
         .build()
         .toString()
 
-    /** Use a default caching policy if not provided by the server */
+    /** Adds [defaultCacheControl] if the response doesn't provide 'Cache-Control` */
     val defaultCacheControlInterceptor = Interceptor { chain ->
         val originalResponse = chain.proceed(chain.request())
 

@@ -1,4 +1,4 @@
-package com.ninovanhooff.negenwnegenw
+package com.ninovanhooff.negenwnegenw.main
 
 import android.os.Parcel
 import android.os.Parcelable

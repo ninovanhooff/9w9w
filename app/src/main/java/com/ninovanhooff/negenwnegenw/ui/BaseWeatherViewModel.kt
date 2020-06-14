@@ -9,7 +9,6 @@ import com.ninovanhooff.negenwnegenw.R
 import com.ninovanhooff.negenwnegenw.data.Preferences
 import com.ninovanhooff.negenwnegenw.data.Preferences.TemperatureUnit.CELSIUS
 import com.ninovanhooff.negenwnegenw.data.Preferences.TemperatureUnit.FAHRENHEIT
-import com.ninovanhooff.negenwnegenw.services.WeatherService
 import com.ninovanhooff.negenwnegenw.services.dto.FiveDayForecastResponse
 import com.ninovanhooff.negenwnegenw.util.LiveDataUtil.Event
 import kotlinx.coroutines.CoroutineScope
@@ -20,13 +19,14 @@ import retrofit2.HttpException
 import timber.log.Timber
 
 abstract class BaseWeatherViewModel : ViewModel() {
-    private val weather = WeatherService.INSTANCE
+    private val weather = MyApplication.injector.provideWeatherService()
     protected val prefs = MyApplication.injector.providePreferences()
     private val context = MyApplication.injector.provideContext()
 
     private val _errorMessages = MutableLiveData<Event<String>>()
     val errorMessages: LiveData<Event<String>> = _errorMessages
 
+    /** Triggers a data reload when the user changes the city or temperature unit */
     private val prefsChangedListener =
         SharedPreferences.OnSharedPreferenceChangeListener { _, key ->
             if (key in listOf(Preferences.PREF_KEY_LAST_CITY_ID, Preferences.PREF_KEY_TEMPERATURE_UNIT)){

@@ -1,10 +1,11 @@
-package com.ninovanhooff.negenwnegenw
+package com.ninovanhooff.negenwnegenw.main
 
 import android.content.SharedPreferences
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.ninovanhooff.negenwnegenw.MyApplication
 import com.ninovanhooff.negenwnegenw.data.Preferences
 import com.ninovanhooff.negenwnegenw.services.WeatherService
 import com.ninovanhooff.negenwnegenw.util.debounce
@@ -16,7 +17,7 @@ import retrofit2.HttpException
 import timber.log.Timber
 
 class MainViewModel: ViewModel() {
-    private val weather = WeatherService.INSTANCE
+    private val weather = MyApplication.injector.provideWeatherService()
     private val prefs = MyApplication.injector.providePreferences()
 
     private val _citySuggestions = MutableLiveData<List<CityModel>>()
@@ -68,7 +69,11 @@ class MainViewModel: ViewModel() {
                 try {
                     if (response.isSuccessful) {
                         val suggestions = response.body()?.cities?.map {
-                            CityModel(it.name, it.sys.country, it.id)
+                            CityModel(
+                                it.name,
+                                it.sys.country,
+                                it.id
+                            )
                         } ?: listOf()
                         if(suggestions.isNotEmpty() && selectFirst){
                             prefs.setActiveCity(suggestions.first())

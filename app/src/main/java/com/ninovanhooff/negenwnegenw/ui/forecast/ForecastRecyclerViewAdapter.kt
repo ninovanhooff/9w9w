@@ -55,7 +55,7 @@ class ForecastRecyclerViewAdapter(
 
     override fun getItemCount(): Int = values.size
 
-    inner class ViewHolder(val mView: View) : RecyclerView.ViewHolder(mView) {
+    inner class ViewHolder(mView: View) : RecyclerView.ViewHolder(mView) {
         private val leftItemView: View = mView.item_left
         val leftTemperature: TextView = leftItemView.text_temperature
         val leftTemperatureUnit: TextView = leftItemView.text_temperature_unit
@@ -72,7 +72,7 @@ class ForecastRecyclerViewAdapter(
         val rightDateTime:TextView = rightItemView.text_datetime
 
         override fun toString(): String {
-            return super.toString() + " '" + leftTemperature.text + "'"
+            return super.toString() + "'($leftDateTime,$rightDateTime)'"
         }
     }
 }

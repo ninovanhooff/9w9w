@@ -2,8 +2,8 @@ package com.ninovanhooff.negenwnegenw.util
 
 object LiveDataUtil {
 
-    /** Can only be consumed once. Will not be re-emitted when the Fragment attaches a second time
-     * to ViewModel, for example
+    /** Provides [getContentIfNotHandledOrReturnNull] which allows usages to not
+     * consume a value twice.
      */
     open class Event<out T>(private val content: T) {
 

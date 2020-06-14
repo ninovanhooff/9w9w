@@ -9,6 +9,7 @@ import androidx.annotation.CallSuper
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 
+/** Base class for all Fragments which use a [BaseWeatherViewModel] */
 abstract class BaseWeatherFragment: Fragment() {
 
     abstract fun provideBaseViewModel() : BaseWeatherViewModel

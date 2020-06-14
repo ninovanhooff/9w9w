@@ -8,7 +8,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.math.roundToInt
 
-/** A model for data-binding fragment_today.xml
+/** A model for data-binding Weather-related Views
  * Because all numbers get bound to TextViews, we use String as data type */
 data class WeatherModel(
     val temp: String,
@@ -17,11 +17,12 @@ data class WeatherModel(
     val tempMinMax: String,
     val weatherDescription: String,
     @RawRes val animationRawRes: Int,
+    /** The datetime for which this weather report/forecast is issued */
     val dateTime: String
 ){
 
     override fun toString(): String {
-        return "$temp ($weatherDescription)"
+        return "$dateTime: $temp $tempUnit ($weatherDescription)"
     }
 
     companion object {
@@ -45,9 +46,9 @@ data class WeatherModel(
 
             val tz = TimeZone.getDefault()
             tz.rawOffset = tzOffsetSeconds * 1000
-            val sdf = SimpleDateFormat("EEEE h a", Locale.getDefault())
+            val sdf = SimpleDateFormat("EEEE h a", Locale.getDefault()) // "Wednesday 7 pm"
             val dateFormat = Date((timeSlot.dt  + tzOffsetSeconds) * 1000L)
-            val weekday: String = sdf.format(dateFormat)
+            val dateString: String = sdf.format(dateFormat)
             return WeatherModel(
                 main.temp.convertTemp(),
                 tempUnit,
@@ -56,7 +57,7 @@ data class WeatherModel(
                 timeSlot.weather[0].description.capitalize(),
                 lottieMap[timeSlot.weather[0].main]
                     ?: R.raw.lottie_partly_cloudy,
-                weekday
+                dateString
             )
         }
 

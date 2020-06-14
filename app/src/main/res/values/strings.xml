@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">9w9w</string>
-    <string name="title_home">Today</string>
+    <string name="title_today">Today</string>
     <string name="title_forecast">Forecast</string>
     <string name="error_too_many_requests">Exceeded request limit. Check back tomorrow.</string>
 </resources>

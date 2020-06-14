@@ -3,7 +3,7 @@ package com.ninovanhooff.negenwnegenw.data
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.preference.PreferenceManager
-import com.ninovanhooff.negenwnegenw.CityModel
+import com.ninovanhooff.negenwnegenw.main.CityModel
 
 /** SharedPreferences Implementation. Stores user preferences. */
 class Preferences constructor(context: Context) {
