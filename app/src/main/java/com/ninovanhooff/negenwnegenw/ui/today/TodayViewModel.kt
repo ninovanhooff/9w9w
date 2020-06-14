@@ -23,7 +23,8 @@ class TodayViewModel : BaseWeatherViewModel() {
             return
         }
         val timeSlot = body.timeSlots[0]
-        _forecastModel.postValue(WeatherModel.fromTimeSlot(timeSlot))
+        val tempUnit = prefs.getTemperatureUnit().toString()
+        _forecastModel.postValue(WeatherModel.fromTimeSlot(timeSlot, tempUnit))
     }
 
 }

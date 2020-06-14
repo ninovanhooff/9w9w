@@ -7,6 +7,8 @@ import androidx.lifecycle.ViewModel
 import com.ninovanhooff.negenwnegenw.MyApplication
 import com.ninovanhooff.negenwnegenw.R
 import com.ninovanhooff.negenwnegenw.data.Preferences
+import com.ninovanhooff.negenwnegenw.data.Preferences.TemperatureUnit.CELSIUS
+import com.ninovanhooff.negenwnegenw.data.Preferences.TemperatureUnit.FAHRENHEIT
 import com.ninovanhooff.negenwnegenw.services.WeatherService
 import com.ninovanhooff.negenwnegenw.services.dto.FiveDayForecastResponse
 import com.ninovanhooff.negenwnegenw.util.LiveDataUtil.Event
@@ -19,7 +21,7 @@ import timber.log.Timber
 
 abstract class BaseWeatherViewModel : ViewModel() {
     private val weather = WeatherService.INSTANCE
-    private val prefs = MyApplication.injector.providePreferences()
+    protected val prefs = MyApplication.injector.providePreferences()
     private val context = MyApplication.injector.provideContext()
 
     private val _errorMessages = MutableLiveData<Event<String>>()
@@ -40,7 +42,8 @@ abstract class BaseWeatherViewModel : ViewModel() {
     protected fun loadForecast() {
         CoroutineScope(Dispatchers.IO).launch {
             val activeCity = prefs.getActiveCity()
-            val response = weather.getForecast(activeCity.id)
+            val units = prefs.getTemperatureUnit().apiValue()
+            val response = weather.getForecast(activeCity.id, units)
             withContext(Dispatchers.Default) {
                 // NOT run on main thread. dispatch / post updates to update UI.
                 try {
@@ -70,6 +73,14 @@ abstract class BaseWeatherViewModel : ViewModel() {
             _errorMessages.postValue(Event(context.getString(R.string.error_too_many_requests)))
         }
         Timber.e(e)
+    }
+
+    companion object {
+        private fun Preferences.TemperatureUnit.apiValue(): String =
+            when(this) {
+                CELSIUS -> "metric"
+                FAHRENHEIT -> "imperial"
+            }
     }
 
 }

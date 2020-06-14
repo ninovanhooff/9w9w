@@ -28,14 +28,16 @@ class ForecastViewModel: BaseWeatherViewModel() {
             return
         }
 
+        val unitString = prefs.getTemperatureUnit().toString()
+
         val items = listOf(
             ForecastDoubleItem(
-                WeatherModel.fromTimeSlot(timeSlots[0]),
-                WeatherModel.fromTimeSlot(timeSlots[4])
+                WeatherModel.fromTimeSlot(timeSlots[0], unitString),
+                WeatherModel.fromTimeSlot(timeSlots[4], unitString)
             ),
             ForecastDoubleItem(
-                WeatherModel.fromTimeSlot(timeSlots[8]),
-                WeatherModel.fromTimeSlot(timeSlots[12])
+                WeatherModel.fromTimeSlot(timeSlots[8], unitString),
+                WeatherModel.fromTimeSlot(timeSlots[12], unitString)
             )
         )
 

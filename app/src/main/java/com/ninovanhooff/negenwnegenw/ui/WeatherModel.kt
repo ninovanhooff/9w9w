@@ -34,14 +34,14 @@ data class WeatherModel(
         )
 
         @SuppressLint("DefaultLocale") // using Locale requires experimental kotlin overload
-        fun fromTimeSlot(timeSlot: TimeSlot): WeatherModel {
+        fun fromTimeSlot(timeSlot: TimeSlot, tempUnit: String): WeatherModel {
             val main = timeSlot.main
             val tempMinMax =
                 "Min: ${main.temp_min.convertTemp()}° ↓ · " +
                 "Max: ${main.temp_max.convertTemp()}° ↑"
             return WeatherModel(
                 main.temp.convertTemp(),
-                "℃",
+                tempUnit,
                 main.feels_like.convertTemp(),
                 tempMinMax,
                 timeSlot.weather[0].description.capitalize(),

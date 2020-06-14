@@ -17,8 +17,8 @@ import java.io.File
 
 interface WeatherService {
 
-    @GET("forecast?units=metric")
-    suspend fun getForecast(@Query("id") cityId: Int): Response<FiveDayForecastResponse>
+    @GET("forecast")
+    suspend fun getForecast(@Query("id") cityId: Int, @Query("units") units: String): Response<FiveDayForecastResponse>
 
     /** The documented `type=like` query param for substring search seems to be ineffective */
     @GET("find?type=like")

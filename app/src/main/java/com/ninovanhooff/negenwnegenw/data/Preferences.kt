@@ -108,9 +108,13 @@ class Preferences constructor(context: Context) {
         val DEFAULT_TEMPERATURE_UNIT = TemperatureUnit.CELSIUS
     }
 
-    enum class TemperatureUnit(val value: Int){
-        CELSIUS(0),
-        FAHRENHEIT(1);
+    enum class TemperatureUnit(val value: Int, val symbol: String){
+        CELSIUS(0, "℃"),
+        FAHRENHEIT(1, "℉");
+
+        override fun toString(): String {
+            return symbol
+        }
 
         companion object {
             private val values = values()
