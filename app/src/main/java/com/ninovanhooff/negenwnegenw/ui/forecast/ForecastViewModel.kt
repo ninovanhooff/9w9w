@@ -5,8 +5,8 @@ import androidx.lifecycle.MutableLiveData
 import com.ninovanhooff.negenwnegenw.services.dto.FiveDayForecastResponse
 import com.ninovanhooff.negenwnegenw.ui.BaseWeatherViewModel
 import com.ninovanhooff.negenwnegenw.ui.WeatherModel
-import timber.log.Timber
 
+/** Provides [forecastPages] which contain two weather forecasts: [WeatherModel] each */
 class ForecastViewModel: BaseWeatherViewModel() {
 
     // don't expose the mutable data...
@@ -23,25 +23,20 @@ class ForecastViewModel: BaseWeatherViewModel() {
 
         val timeSlots = body.timeSlots
 
-        if (timeSlots.size < 25){
-            Timber.e("Insufficient timeslots for 4-day forecast")
-            return
-        }
-
         val unitString = prefs.getTemperatureUnit().toString()
         val tzOffsetSeconds = body.city.timezone
 
-
-        val items = listOf(
+        // Break timeslots into pages of 4 items
+        val subLists = timeSlots.windowed(4, 4, partialWindows = false)
+        // Discard very odd-numbered 3-hour interval, resulting in 2 forecasts per day and
+        // a total of 10 pages for a FiveDayForecastResponse
+        val items = subLists.map {
             ForecastDoubleItem(
-                WeatherModel.fromTimeSlot(timeSlots[0], unitString, tzOffsetSeconds),
-                WeatherModel.fromTimeSlot(timeSlots[8], unitString, tzOffsetSeconds)
-            ),
-            ForecastDoubleItem(
-                WeatherModel.fromTimeSlot(timeSlots[16], unitString, tzOffsetSeconds),
-                WeatherModel.fromTimeSlot(timeSlots[24], unitString, tzOffsetSeconds)
+                WeatherModel.fromTimeSlot(it[0], unitString, tzOffsetSeconds),
+                WeatherModel.fromTimeSlot(it[2], unitString, tzOffsetSeconds)
             )
-        )
+            // discard indexes 1 and 3
+        }
 
         _forecastPages.postValue(items)
     }
