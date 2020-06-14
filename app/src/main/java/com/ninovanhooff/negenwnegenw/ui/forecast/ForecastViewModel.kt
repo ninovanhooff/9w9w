@@ -14,6 +14,10 @@ class ForecastViewModel: BaseWeatherViewModel() {
     // but the read-only data instead
     val forecastPages: LiveData<List<ForecastDoubleItem>> = _forecastPages
 
+    init {
+        super.loadForecast()
+    }
+
     override fun handleForecastResponse(body: FiveDayForecastResponse) {
         // extract 4 daily forecasts from a list of timeslots
 

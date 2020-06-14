@@ -35,8 +35,6 @@ abstract class BaseWeatherViewModel : ViewModel() {
 
     init {
         prefs.registerListener(prefsChangedListener)
-
-        loadForecast()
     }
 
     protected fun loadForecast() {
