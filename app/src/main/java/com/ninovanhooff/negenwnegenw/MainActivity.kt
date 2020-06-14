@@ -10,11 +10,9 @@ import androidx.navigation.ui.setupWithNavController
 import com.arlib.floatingsearchview.FloatingSearchView
 import com.arlib.floatingsearchview.suggestions.model.SearchSuggestion
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.ninovanhooff.negenwnegenw.ui.forecast.ForecastDoubleItem
-import com.ninovanhooff.negenwnegenw.ui.forecast.ForecastFragment
 
 
-class MainActivity : AppCompatActivity(), ForecastFragment.OnListFragmentInteractionListener {
+class MainActivity : AppCompatActivity() {
 
     private lateinit var viewModel: MainViewModel
     private lateinit var searchView: FloatingSearchView
@@ -64,10 +62,5 @@ class MainActivity : AppCompatActivity(), ForecastFragment.OnListFragmentInterac
             searchView.swapSuggestions(it)
         })
     }
-
-    override fun onListFragmentInteraction(item: ForecastDoubleItem?) {
-        // do nothing
-    }
-
 
 }

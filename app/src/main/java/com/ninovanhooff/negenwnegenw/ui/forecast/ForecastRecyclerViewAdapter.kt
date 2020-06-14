@@ -9,29 +9,15 @@ import androidx.recyclerview.widget.RecyclerView
 import com.airbnb.lottie.LottieAnimationView
 import com.airbnb.lottie.LottieCompositionFactory
 import com.ninovanhooff.negenwnegenw.R
-import com.ninovanhooff.negenwnegenw.ui.forecast.ForecastFragment.OnListFragmentInteractionListener
 import kotlinx.android.synthetic.main.forecast_double_item.view.*
 import kotlinx.android.synthetic.main.forecast_item.view.*
 
 /**
- * [RecyclerView.Adapter] that can display a [ForecastDoubleItem] and makes a call to the
- * specified [OnListFragmentInteractionListener].
+ * [RecyclerView.Adapter] that can display a [ForecastDoubleItem]
  */
 class ForecastRecyclerViewAdapter(
-    private val values: List<ForecastDoubleItem>,
-    private val listener: OnListFragmentInteractionListener?
-) : RecyclerView.Adapter<ForecastRecyclerViewAdapter.ViewHolder>() {
-
-    private val onClickListener: View.OnClickListener
-
-    init {
-        onClickListener = View.OnClickListener { v ->
-            val item = v.tag as ForecastDoubleItem
-            // Notify the active callbacks interface (the activity, if the fragment is attached to
-            // one) that an item has been selected.
-            listener?.onListFragmentInteraction(item)
-        }
-    }
+    private val values: List<ForecastDoubleItem>)
+    : RecyclerView.Adapter<ForecastRecyclerViewAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
@@ -65,12 +51,6 @@ class ForecastRecyclerViewAdapter(
                 holder.rightAnimation.setComposition(composition)
                 holder.rightAnimation.playAnimation()
             }
-        
-
-        with(holder.mView) {
-            tag = item
-            setOnClickListener(onClickListener)
-        }
     }
 
     override fun getItemCount(): Int = values.size
