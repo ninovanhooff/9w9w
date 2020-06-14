@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center"
     android:baselineAligned="false"
     android:orientation="horizontal"
     tools:context=".ui.forecast.ForecastFragment">
@@ -10,17 +11,15 @@
     <include
         android:id="@+id/item_left"
         layout="@layout/forecast_item"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_marginEnd="8dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_weight="0.5" />
 
     <include
         android:id="@+id/item_right"
         layout="@layout/forecast_item"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_marginEnd="8dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_weight="0.5" />
 
 

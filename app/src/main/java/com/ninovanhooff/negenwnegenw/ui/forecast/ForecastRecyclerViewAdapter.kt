@@ -42,6 +42,7 @@ class ForecastRecyclerViewAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = values[position]
         holder.leftTemperature.text = item.left.temp
+        holder.leftTemperatureUnit.text = item.left.tempUnit
         holder.leftTemperatureMinMax.text = item.left.tempMinMax
         holder.leftWeatherDescription.text = item.left.weatherDescription
 
@@ -52,7 +53,8 @@ class ForecastRecyclerViewAdapter(
             }
 
 
-        holder.rightTemperatureText.text = item.right.temp
+        holder.rightTemperature.text = item.right.temp
+        holder.rightTemperatureUnit.text = item.right.tempUnit
         holder.rightTemperatureMinMax.text = item.right.tempMinMax
         holder.rightWeatherDescription.text = item.right.weatherDescription
 
@@ -74,11 +76,13 @@ class ForecastRecyclerViewAdapter(
     inner class ViewHolder(val mView: View) : RecyclerView.ViewHolder(mView) {
         private val leftItemView: View = mView.item_left
         val leftTemperature: TextView = leftItemView.text_temperature
+        val leftTemperatureUnit: TextView = leftItemView.text_temperature_unit
         val leftTemperatureMinMax: TextView = leftItemView.text_temp_min_max
         val leftWeatherDescription: TextView = leftItemView.text_weather_description
         val leftAnimation: LottieAnimationView = leftItemView.weather_animation
         private val rightItemView: View = mView.item_right
-        val rightTemperatureText: TextView = rightItemView.text_temperature
+        val rightTemperature: TextView = rightItemView.text_temperature
+        val rightTemperatureUnit: TextView = rightItemView.text_temperature_unit
         val rightTemperatureMinMax: TextView = rightItemView.text_temp_min_max
         val rightWeatherDescription: TextView = rightItemView.text_weather_description
         val rightAnimation: LottieAnimationView = rightItemView.weather_animation
