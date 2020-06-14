@@ -42,7 +42,6 @@ class MainActivity : AppCompatActivity(), ForecastFragment.OnListFragmentInterac
         navView.setupWithNavController(navController)
 
         searchView = findViewById(R.id.floating_search_view)
-        searchView.closeMenu(true)
 
         searchView.setOnQueryChangeListener { _, newQuery ->
             //get suggestions based on newQuery
@@ -61,7 +60,7 @@ class MainActivity : AppCompatActivity(), ForecastFragment.OnListFragmentInterac
     }
 
     override fun onListFragmentInteraction(item: ForecastDoubleItem?) {
-        // nothing
+        // do nothing
     }
 
 
