@@ -38,6 +38,7 @@ class ForecastFragment : BaseWeatherFragment() {
         val recycler: RecyclerView = inflater.inflate(R.layout.fragment_forecast, container, false) as RecyclerView
         // Configures the snap helper and attaches itself to the recycler view -- now items will snap to the center
         LinearSnapHelper().attachToRecyclerView(recycler)
+        recycler.addItemDecoration(LinePagerIndicatorDecoration())
 
 
         // Set the adapter
