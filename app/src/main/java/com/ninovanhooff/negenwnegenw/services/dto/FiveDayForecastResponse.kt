@@ -60,7 +60,10 @@ data class City(
     val country: String,
     @Expose
     @SerializedName("id")
-    val id: Int
+    val id: Int,
+    @Expose
+    @SerializedName("timezone")
+    val timezone: Int
 )
 
 

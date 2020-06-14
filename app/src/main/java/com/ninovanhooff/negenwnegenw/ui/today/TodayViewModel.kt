@@ -24,7 +24,8 @@ class TodayViewModel : BaseWeatherViewModel() {
         }
         val timeSlot = body.timeSlots[0]
         val tempUnit = prefs.getTemperatureUnit().toString()
-        _forecastModel.postValue(WeatherModel.fromTimeSlot(timeSlot, tempUnit))
+        val tzOffsetSeconds = body.city.timezone
+        _forecastModel.postValue(WeatherModel.fromTimeSlot(timeSlot, tempUnit, tzOffsetSeconds))
     }
 
 }

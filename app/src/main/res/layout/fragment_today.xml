@@ -18,6 +18,16 @@
         tools:context=".ui.today.TodayFragment">
 
         <TextView
+            android:id="@+id/text_datetime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@id/startGuide"
+            app:layout_constraintTop_toTopOf="@id/topGuide"
+            android:text="@{today.dateTime}"
+            tools:text="Sunday"
+            />
+
+        <TextView
             android:id="@+id/text_temperature"
             style="@style/PrimaryText"
             android:layout_width="wrap_content"
@@ -27,7 +37,8 @@
             android:text="@{today.temp}"
             android:textSize="96sp"
             app:layout_constraintStart_toStartOf="@id/startGuide"
-            app:layout_constraintTop_toTopOf="@id/topGuide"
+            app:layout_constraintTop_toBottomOf="@id/text_datetime"
+            android:layout_marginTop="12dp"
             tools:text="12" />
 
         <TextView

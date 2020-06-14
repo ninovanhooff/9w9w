@@ -23,21 +23,23 @@ class ForecastViewModel: BaseWeatherViewModel() {
 
         val timeSlots = body.timeSlots
 
-        if (timeSlots.size < 13){
+        if (timeSlots.size < 25){
             Timber.e("Insufficient timeslots for 4-day forecast")
             return
         }
 
         val unitString = prefs.getTemperatureUnit().toString()
+        val tzOffsetSeconds = body.city.timezone
+
 
         val items = listOf(
             ForecastDoubleItem(
-                WeatherModel.fromTimeSlot(timeSlots[0], unitString),
-                WeatherModel.fromTimeSlot(timeSlots[4], unitString)
+                WeatherModel.fromTimeSlot(timeSlots[0], unitString, tzOffsetSeconds),
+                WeatherModel.fromTimeSlot(timeSlots[8], unitString, tzOffsetSeconds)
             ),
             ForecastDoubleItem(
-                WeatherModel.fromTimeSlot(timeSlots[8], unitString),
-                WeatherModel.fromTimeSlot(timeSlots[12], unitString)
+                WeatherModel.fromTimeSlot(timeSlots[16], unitString, tzOffsetSeconds),
+                WeatherModel.fromTimeSlot(timeSlots[24], unitString, tzOffsetSeconds)
             )
         )
 

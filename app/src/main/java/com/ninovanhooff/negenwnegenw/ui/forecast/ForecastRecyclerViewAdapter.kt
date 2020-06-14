@@ -45,6 +45,7 @@ class ForecastRecyclerViewAdapter(
         holder.leftTemperatureUnit.text = item.left.tempUnit
         holder.leftTemperatureMinMax.text = item.left.tempMinMax
         holder.leftWeatherDescription.text = item.left.weatherDescription
+        holder.leftDateTime.text = item.left.dateTime
 
         LottieCompositionFactory.fromRawRes(holder.itemView.context, item.left.animationRawRes)
             .addListener { composition ->
@@ -57,6 +58,7 @@ class ForecastRecyclerViewAdapter(
         holder.rightTemperatureUnit.text = item.right.tempUnit
         holder.rightTemperatureMinMax.text = item.right.tempMinMax
         holder.rightWeatherDescription.text = item.right.weatherDescription
+        holder.rightDateTime.text = item.right.dateTime
 
         LottieCompositionFactory.fromRawRes(holder.itemView.context, item.right.animationRawRes)
             .addListener { composition ->
@@ -80,12 +82,14 @@ class ForecastRecyclerViewAdapter(
         val leftTemperatureMinMax: TextView = leftItemView.text_temp_min_max
         val leftWeatherDescription: TextView = leftItemView.text_weather_description
         val leftAnimation: LottieAnimationView = leftItemView.weather_animation
+        val leftDateTime: TextView = leftItemView.text_datetime
         private val rightItemView: View = mView.item_right
         val rightTemperature: TextView = rightItemView.text_temperature
         val rightTemperatureUnit: TextView = rightItemView.text_temperature_unit
         val rightTemperatureMinMax: TextView = rightItemView.text_temp_min_max
         val rightWeatherDescription: TextView = rightItemView.text_weather_description
         val rightAnimation: LottieAnimationView = rightItemView.weather_animation
+        val rightDateTime:TextView = rightItemView.text_datetime
 
         override fun toString(): String {
             return super.toString() + " '" + leftTemperature.text + "'"
